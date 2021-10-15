@@ -14,6 +14,7 @@ struct {
 
 static struct proc *initproc;
 
+int readnum = 0;
 int nextpid = 1;
 extern void forkret(void);
 extern void trapret(void);
@@ -78,9 +79,12 @@ allocproc(void)
 
   acquire(&ptable.lock);
 
+
   for(p = ptable.proc; p < &ptable.proc[NPROC]; p++)
-    if(p->state == UNUSED)
+    if(p->state == UNUSED){
+      p->idread = 0;
       goto found;
+    }
 
   release(&ptable.lock);
   return 0;
@@ -543,5 +547,11 @@ getProcCount(void){
     }
   }
   cprintf("number of processes: %d\n", procCount);
+  return 0;
+}
+
+int
+getReadCount(void){
+  cprintf("number of reads: %d\n", readnum);
   return 0;
 }
