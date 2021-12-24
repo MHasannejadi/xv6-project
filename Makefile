@@ -143,7 +143,7 @@ tags: $(OBJS) entryother.S _init
 vectors.S: vectors.pl
 	./vectors.pl > vectors.S
 
-ULIB = ulib.o usys.o printf.o umalloc.o
+ULIB = ulib.o usys.o printf.o umalloc.o thread_create.o
 
 _%: %.o $(ULIB)
 	$(LD) $(LDFLAGS) -N -e main -Ttext 0 -o $@ $^
@@ -183,6 +183,8 @@ UPROGS=\
 	_zombie\
 	_testProcCount\
 	_testReadCount\
+	_threads\
+	_threadsTest\
 
 fs.img: mkfs README $(UPROGS)
 	./mkfs fs.img README $(UPROGS)
@@ -257,6 +259,8 @@ EXTRA=\
 	.gdbinit.tmpl gdbutil\
 	testProcCount.c\
 	testReadCount.c\
+	threads.c\
+	threadsTest.c\
 
 dist:
 	rm -rf dist

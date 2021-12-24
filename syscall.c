@@ -107,6 +107,8 @@ extern int sys_uptime(void);
 extern int sys_getProcCount(void);
 extern int sys_getReadCount(void);
 extern int readnum;
+extern int sys_clone(void);
+extern int sys_join(void);
 
 static int (*syscalls[])(void) = {
 [SYS_fork]    sys_fork,
@@ -132,6 +134,8 @@ static int (*syscalls[])(void) = {
 [SYS_close]   sys_close,
 [SYS_getProcCount]   sys_getProcCount,
 [SYS_getReadCount]   sys_getReadCount,
+[SYS_clone] sys_clone,
+[SYS_join] sys_join,
 };
 
 void
